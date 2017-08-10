@@ -1,0 +1,21 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "events": "^1.1.1",
+    "express": "^4.15.3",
+    "fs": "^0.0.1-security",
+    "mysql": "^2.14.1",
+    "nodemon": "^1.11.0",
+    "socket.io": "^0.9.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
