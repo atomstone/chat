@@ -4,14 +4,14 @@ var path = require('path');
 var mime = require('mime');
 var cache = {};
 
-//ÇëÇóÎÄ¼ş²»´æÔÚÊ±·¢ËÍ404´íÎó
+//è¯·æ±‚æ–‡ä»¶ä¸å­˜åœ¨æ—¶å‘é€404é”™è¯¯
 function send404(response){
     response.writeHead(404, {'Content-Type':'text/plain'});
     response.write('error 404: resource not found');
     response.end();
 }
 
-//·¢ËÍÎÄ¼şÄÚÈİ
+//å‘é€æ–‡ä»¶å†…å®¹
 function sendFile(response, filePath, fileContents){
     response.writeHead(
         200,
@@ -20,13 +20,13 @@ function sendFile(response, filePath, fileContents){
     response.end(fileContents);
 }
 
-//µÚÒ»´Î·ÃÎÊ´ÓÓ²ÅÌ¶ÁÈ¡²¢»º´æµ½ÄÚ´æÖĞ,Ö®ºó·ÃÎÊÖ±½Ó¶ÁÈ¡ÄÚÈİ
+//ç¬¬ä¸€æ¬¡è®¿é—®ä»ç¡¬ç›˜è¯»å–å¹¶ç¼“å­˜åˆ°å†…å­˜ä¸­,ä¹‹åè®¿é—®ç›´æ¥è¯»å–å†…å®¹
 function serveStatic(response, cache, absPath){
-    if(cache[absPath]){ //¼ì²éÎÄ¼şÊÇ·ñ»º´æÔÚÄÚ´æÖĞ
-        sendFile(response, absPath, cache[absPath]); //´ÓÄÚ´æÖĞ·µ»ØÎÄ¼ş
+    if(cache[absPath]){ //æ£€æŸ¥æ–‡ä»¶æ˜¯å¦ç¼“å­˜åœ¨å†…å­˜ä¸­
+        sendFile(response, absPath, cache[absPath]); //ä»å†…å­˜ä¸­è¿”å›æ–‡ä»¶
     }else{
-        fs.exists(absPath, function(exists){ //¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ
-            if(exists){ //´ÓÓ²ÅÌÖĞ¶ÁÈ¡ÎÄ¼ş
+        fs.exists(absPath, function(exists){ //æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
+            if(exists){ //ä»ç¡¬ç›˜ä¸­è¯»å–æ–‡ä»¶
                 fs.readFile(absPath, function(err, data){
                     if(err){
                         send404(response);
@@ -42,7 +42,7 @@ function serveStatic(response, cache, absPath){
     }
 }
 
-//´´½¨HTTP·şÎñÆ÷
+//åˆ›å»ºHTTPæœåŠ¡å™¨
 var server = http.createServer(function(request, response){
     var filePath = false;
     if(request.url == '/'){
@@ -55,15 +55,15 @@ console.log('hello');
     serveStatic(response, cache, absPath);
 });
 
-//Æô¶¯http·şÎñÆ÷
+//å¯åŠ¨httpæœåŠ¡å™¨
 server.listen(8192, function(){
     console.log("Server listening on port 8192");
 });
 
 
-//ÉèÖÃsocket.io·şÎñÆ÷
+//è®¾ç½®socket.ioæœåŠ¡å™¨
 var chatServer = require('./lib/chat_server');
-chatServer.listen(server); //Ìá¹©Ò»¸öÒÑ¾­¶¨ÒåºÃµÄhttp·şÎñÆ÷
+chatServer.listen(server); //æä¾›ä¸€ä¸ªå·²ç»å®šä¹‰å¥½çš„httpæœåŠ¡å™¨
 
 
 

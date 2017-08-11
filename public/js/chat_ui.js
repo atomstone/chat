@@ -6,7 +6,7 @@ function divSystemContentElement(message){
     return $('<div></div>').html('<i>'+message+'</i>');
 }
 
-//´¦ÀíÔ­Ê¼µÄÓÃ»§ÊäÈë
+//å¤„ç†åŸå§‹çš„ç”¨æˆ·è¾“å…¥
 function processUserInput(chatApp, socket){
     var message = $("#send-message").val();
     var systemMessage;
@@ -23,13 +23,13 @@ function processUserInput(chatApp, socket){
     $('#send-message').val('');
 }
 
-//¿Í»§¶Ë³õÊ¼»¯Âß¼­
+//å®¢æˆ·ç«¯åˆå§‹åŒ–é€»è¾‘
 var socket = io.connect();
 
 $(document).ready(function(){
     var chatApp = new Chat(socket);
 
-    //ÏÔÊ¾¸üÃû³¢ÊÔµÄ½á¹û
+    //æ˜¾ç¤ºæ›´åå°è¯•çš„ç»“æœ
     socket.on('nameResult', function(result){
         var message;
         if(result.success){
@@ -40,19 +40,19 @@ $(document).ready(function(){
         $("#messages").append(divSystemContentElement(message));
     });
     
-    //ÏÔÊ¾·¿¼ä±ä¸ü½á¹û
+    //æ˜¾ç¤ºæˆ¿é—´å˜æ›´ç»“æœ
     socket.on('joinResult', function(result){
         $("#room").text(result.room);
         $("#messages").append(divSystemContentElement('room changed.'));
     });
 
-    //ÏÔÊ¾½Óµ½µÄÏûÏ¢
+    //æ˜¾ç¤ºæ¥åˆ°çš„æ¶ˆæ¯
     socket.on('messaage', function(message){
         var newElement = $('<div></div>').text(message.text);
         $("#messages").append(newElement);
     });
 
-    //ÏÔÊ¾¿ÉÓÃµÄ·¿¼äÁĞ±í
+    //æ˜¾ç¤ºå¯ç”¨çš„æˆ¿é—´åˆ—è¡¨
     socket.on('rooms', function(rooms){
         $("room-list").empty();
         for(var room in rooms){
@@ -67,12 +67,12 @@ $(document).ready(function(){
         });
     });
     
-    //¶¨ÆÚÇëÇó¿ÉÓÃ·¿¼äÁĞ±í    
+    //å®šæœŸè¯·æ±‚å¯ç”¨æˆ¿é—´åˆ—è¡¨    
    /* setInterval(function(){
         socket.emit('rooms');
     }, 1000);*/
    
-    //Ìá½»±íµ¥¿ÉÒÔ·¢ËÍÁÄÌìĞÅÏ¢
+    //æäº¤è¡¨å•å¯ä»¥å‘é€èŠå¤©ä¿¡æ¯
     $("#send-form").submit(function(){
         processUserInput(chatApp, socket);
         return false;

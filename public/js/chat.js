@@ -2,7 +2,7 @@ var Chat = function(socket){
     this.socket = socket;
 }
 
-//·¢ËÍÏûÏ¢
+//å‘é€æ¶ˆæ¯
 Chat.prototype.sendMessage = function(room, text){
     var message = {
         room:room,
@@ -11,12 +11,12 @@ Chat.prototype.sendMessage = function(room, text){
     this.socket.emit('message', message);
 }
 
-//±ä¸ü·¿¼ä
+//å˜æ›´æˆ¿é—´
 Chat.prototype.changeRoom = function(room){
     this.socket.emit('join', {newRoom:room});
 }
 
-//´¦ÀíÁÄÌìÃüÁî joinÓÃÀ´¼ÓÈë»ò´´½¨Ò»¸ö·¿¼ä nickÓÃÀ´ĞŞ¸ÄêÇ³Æ
+//å¤„ç†èŠå¤©å‘½ä»¤ joinç”¨æ¥åŠ å…¥æˆ–åˆ›å»ºä¸€ä¸ªæˆ¿é—´ nickç”¨æ¥ä¿®æ”¹æ˜µç§°
 Chat.prototype.processCommand = function(command){
     var words = command.split(' ');
     var command = words[0].substring(1, words[0].length).toLowerCase();
