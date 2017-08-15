@@ -4,6 +4,7 @@ var Chat = function(socket){
 
 //发送消息
 Chat.prototype.sendMessage = function(room, text){
+  alert(1);
     var message = {
         room:room,
         text:text

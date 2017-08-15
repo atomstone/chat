@@ -48,6 +48,7 @@ $(document).ready(function(){
 
     //显示接到的消息
     socket.on('messaage', function(message){
+      alert(2);
         var newElement = $('<div></div>').text(message.text);
         $("#messages").append(newElement);
     });
